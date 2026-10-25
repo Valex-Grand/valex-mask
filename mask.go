@@ -9,7 +9,7 @@ import (
 func Mask(input string) string {
 	result := input
 
-	
+
 	passwordRegex := regexp.MustCompile(`(?i)\b(?:password|passwd|pwd|secret)\b\s*[:=]?\s*("[^"]+"|\S+)?|\bpassword\d+\b`)
 	result = passwordRegex.ReplaceAllString(result, "[REDACTED]")
 
@@ -21,7 +21,7 @@ func Mask(input string) string {
 	awsSecretRegex := regexp.MustCompile(`(?i)(aws[_-]?secret[_-]?access[_-]?key)\s*[:=]\s*([a-zA-Z0-9/+=]+)`)
 	result = awsSecretRegex.ReplaceAllString(result, `$1=[REDACTED]`)
 
-
+	
 	ghTokenRegex := regexp.MustCompile(`ghp_[a-zA-Z0-9]{36}`)
 	result = ghTokenRegex.ReplaceAllString(result, "[REDACTED_GITHUB_TOKEN]")
 
@@ -49,8 +49,7 @@ func Mask(input string) string {
 	result = ipv4Regex.ReplaceAllString(result, "[REDACTED_IP]")
 
 	
-	
-	ipv6Regex := regexp.MustCompile(`\b(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}\b|\b(?:[0-9a-fA-F]{1,4}:){1,7}:\b|\b(?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}\b|\b(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}\b|\b(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}\b|\b(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}\b|\b(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}\b|\b[0-9a-fA-F]{1,4}:(?:(?::[0-9a-fA-F]{1,4}){1,6})\b|\b:(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)\b`)
+	ipv6Regex := regexp.MustCompile(`\b(?:[0-9a-fA-F]{1,4}:){1,7}:[0-9a-fA-F]{1,4}|\b(?:[0-9a-fA-F]{1,4}:){1,6}:(?:[0-9a-fA-F]{1,4}:){0,1}[0-9a-fA-F]{1,4}|\b(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}|\b(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|\b(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|\b(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|\b[0-9a-fA-F]{1,4}:(?:(?::[0-9a-fA-F]{1,4}){1,6})|\b:(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)\b`)
 	result = ipv6Regex.ReplaceAllString(result, "[REDACTED_IP]")
 
 	
