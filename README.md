@@ -31,14 +31,14 @@ go get github.com/Valex-Grand/valex-mask
 
 The simplest way to sanitize log strings:
 
-package main
+	package main
 
-import (
-	"fmt"
-	"github.com/Valex-Grand/valex-mask"
-)
+	import (
+		"fmt"
+		"github.com/Valex-Grand/valex-mask"
+	)
 
-func main() {
+	func main() {
 	rawLog := "User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGci..."
 	
 	safeLog := valexmask.Mask(rawLog)
@@ -52,15 +52,15 @@ func main() {
 
 For high-traffic microservices where memory allocations must be strictly avoided:
 
-package main
-
-import (
-	"fmt"
-	"github.com/Valex-Grand/valex-mask"
-)
-
-func main() {
-	rawLog := "src=10.0.0.1 dst=2001:db8::8a2e:370:7334"
+	package main
+	
+	import (
+		"fmt"
+		"github.com/Valex-Grand/valex-mask"
+	)
+	
+	func main() {
+		rawLog := "src=10.0.0.1 dst=2001:db8::8a2e:370:7334"
 	
 	buf := make([]byte, 0, 1024)
 	buf = valexmask.AppendMask(buf[:0], rawLog)
