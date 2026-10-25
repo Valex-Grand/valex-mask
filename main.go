@@ -1,8 +1,27 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
 func main() {
+	
+	if len(os.Args) > 1 {
+		
+		input := strings.Join(os.Args[1:], " ")
+
+		fmt.Println("Orijinal :", input)
+		fmt.Println("Maskeli  :", Mask(input))
+		return
+	}
+
+	
+	runDemo()
+}
+
+func runDemo() {
 	logs := []string{
 		"User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGci...",
 		"src=10.0.0.1 dst=2001:db8::8a2e:370:7334 ok",
@@ -13,6 +32,7 @@ func main() {
 		`{"password": "hunter2", "max_tokens": 1024}`,
 		"12:30:45 2026-10-25 aa:bb:cc:dd:ee:ff temiz satır",
 	}
+
 	for _, l := range logs {
 		fmt.Println("Orijinal :", l)
 		fmt.Println("Maskeli  :", Mask(l))
