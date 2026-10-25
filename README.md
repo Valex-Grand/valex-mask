@@ -1,3 +1,5 @@
+[![Test Status](https://github.com/Valex-Grand/valex-mask/actions/workflows/test.yml/badge.svg)](https://github.com/Valex-Grand/valex-mask/actions/workflows/test.yml)
+
 <div align="center">
 
 # 🛡️ valex-mask
