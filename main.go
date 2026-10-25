@@ -1,4 +1,4 @@
-package valexmask
+package main
 
 import "fmt"
 
