@@ -9,10 +9,9 @@ import (
 func Mask(input string) string {
 	result := input
 
-	// 1. Düz Metin ve Parametrik Şifreler (password=..., passwd: ..., pwd=...)
-	// Örn: password=12345 -> password=[REDACTED]
-	passwordRegex := regexp.MustCompile(`(?i)(password|passwd|pwd|secret)\s*[:=]\s*("[^"]+"|\S+)`)
-	result = passwordRegex.ReplaceAllString(result, `$1=[REDACTED]`)
+	// 1. Şifreler ve Parolalar (password=..., passwd: ..., şifre, veya doğrudan password123 gibi kelimeler)
+	passwordRegex := regexp.MustCompile(`(?i)\b(?:password|passwd|pwd|secret)\b\s*[:=]?\s*("[^"]+"|\S+)?|\bpassword\d+\b`)
+	result = passwordRegex.ReplaceAllString(result, "[REDACTED]")
 
 	// 2. API Key ve Özel Secret Kalıpları (api_key=..., sk_live_... vb.)
 	apiKeyRegex := regexp.MustCompile(`(?i)(api[_-]?key|secret[_-]?key|access[_-]?token)\s*[:=]\s*([a-zA-Z0-9_\-]+)`)
