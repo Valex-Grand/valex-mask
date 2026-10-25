@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net"
 	"regexp"
 	"strings"
 )
@@ -9,7 +10,7 @@ import (
 func Mask(input string) string {
 	result := input
 
-
+	
 	passwordRegex := regexp.MustCompile(`(?i)\b(?:password|passwd|pwd|secret)\b\s*[:=]?\s*("[^"]+"|\S+)?|\bpassword\d+\b`)
 	result = passwordRegex.ReplaceAllString(result, "[REDACTED]")
 
@@ -28,11 +29,10 @@ func Mask(input string) string {
 	awsKeyRegex := regexp.MustCompile(`AKIA[0-9A-Z]{16}`)
 	result = awsKeyRegex.ReplaceAllString(result, "[REDACTED_AWS_KEY_ID]")
 
-	
+
 	jwtRegex := regexp.MustCompile(`eyJ[a-zA-Z0-9_-]+\.eyJ[a-zA-Z0-9_-]+\.[a-zA-Z0-9_-]+`)
 	result = jwtRegex.ReplaceAllString(result, "[REDACTED_JWT]")
 
-	
 	bearerRegex := regexp.MustCompile(`(?i)Bearer\s+[a-zA-Z0-9_\-\.]+`)
 	result = bearerRegex.ReplaceAllString(result, "Bearer [REDACTED_TOKEN]")
 
@@ -45,14 +45,16 @@ func Mask(input string) string {
 	result = tcknRegex.ReplaceAllString(result, "[REDACTED_TCKN]")
 
 	
-	ipv4Regex := regexp.MustCompile(`\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b`)
-	result = ipv4Regex.ReplaceAllString(result, "[REDACTED_IP]")
+	potentialIPRegex := regexp.MustCompile(`\b[0-9a-fA-F:.]+\b`)
+	result = potentialIPRegex.ReplaceAllStringFunc(result, func(word string) string {
+		
+		if ip := net.ParseIP(word); ip != nil {
+			return "[REDACTED_IP]"
+		}
+		return word
+	})
 
-	
-	ipv6Regex := regexp.MustCompile(`\b(?:[0-9a-fA-F]{1,4}:){1,7}:[0-9a-fA-F]{1,4}|\b(?:[0-9a-fA-F]{1,4}:){1,6}:(?:[0-9a-fA-F]{1,4}:){0,1}[0-9a-fA-F]{1,4}|\b(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}|\b(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|\b(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|\b(?:[0-9a-fA-F]{1,4}:){1,2}(?::[0-9a-fA-F]{1,4}){1,5}|\b[0-9a-fA-F]{1,4}:(?:(?::[0-9a-fA-F]{1,4}){1,6})|\b:(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)\b`)
-	result = ipv6Regex.ReplaceAllString(result, "[REDACTED_IP]")
 
-	
 	emailRegex := regexp.MustCompile(`([a-zA-Z0-9_.+-]+)@([a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)`)
 	result = emailRegex.ReplaceAllStringFunc(result, func(email string) string {
 		parts := strings.Split(email, "@")
