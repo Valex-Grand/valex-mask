@@ -2,6 +2,8 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/Valex-Grand/valex-mask)](https://goreportcard.com/report/github.com/Valex-Grand/valex-mask)
 
+<a href="https://github.com/Valex-Grand/valex-mask"><img src="https://img.shields.io/badge/allocations-0%20alloc%2Fop-00FF66?style=flat-square&logo=opsgenie&logoColor=black" alt="Zero Alloc"></a>
+
 
 
 
