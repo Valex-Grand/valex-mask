@@ -1,5 +1,11 @@
 [![Test Status](https://github.com/Valex-Grand/valex-mask/actions/workflows/test.yml/badge.svg)](https://github.com/Valex-Grand/valex-mask/actions/workflows/test.yml)
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/Valex-Grand/valex-mask)](https://goreportcard.com/report/github.com/Valex-Grand/valex-mask)
+
+[![CodeFactor Grade](https://www.codefactor.io/repository/github/Valex-Grand/valex-mask/badge)](https://www.codefactor.io/repository/github/Valex-Grand/valex-mask)
+
+
+
 <div align="center">
 
 # 🛡️ valex-mask
