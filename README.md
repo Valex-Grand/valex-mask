@@ -52,7 +52,7 @@ Incoming log                valex-mask                    Clean log
 ## 📦 Installation
 
 ```bash
-go get github.com/Valex-Grand/valex-mask@latest
+go install github.com/Valex-Grand/valex-mask@v1.0.0
 ```
 
 ## 💡 Quick Start
