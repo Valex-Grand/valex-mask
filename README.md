@@ -13,6 +13,35 @@ Zero-allocation log sanitization for Go.
 - Validates card numbers with Luhn and TCKN with checksum rules
 - Leaves timestamps, dates, and other non-sensitive values alone
 
+## Installation
+
+Install from source:
+
+```bash
+git clone https://github.com/Valex-Grand/valex-mask.git
+cd valex-mask
+go build -o valex-mark.exe .
+```
+
+Run the compiled binary:
+
+```bash
+./valex-mark.exe "User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGci..."
+```
+
+Or install directly with Go:
+
+```bash
+go install github.com/Valex-Grand/valex-mask@latest
+```
+
+Example output:
+
+```text
+Orijinal : User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGci...
+Maskeli  : User v****@example.com tried login with api_key=[REDACTED] and Bearer [REDACTED_TOKEN]...
+```
+
 ## Quick start
 
 ```go
@@ -25,37 +54,9 @@ import (
 )
 
 func main() {
-    raw := "User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0In0.dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"
+    raw := "User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGci..."
     fmt.Println(valexmask.Mask(raw))
-    // User v***@example.com tried login with api_key=[REDACTED] and Bearer [REDACTED_TOKEN]
 }
-```
-
-## High-throughput usage
-
-```go
-buf := make([]byte, 0, 4096)
-
-for _, line := range lines {
-    buf = valexmask.AppendMask(buf[:0], line)
-    _ = buf
-}
-```
-
-## Examples
-
-```text
-User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGci...
-=> User v***@example.com tried login with api_key=[REDACTED] and Bearer [REDACTED_TOKEN]
-
-src=10.0.0.1 dst=2001:db8::8a2e:370:7334 ok
-=> src=[REDACTED_IP] dst=[REDACTED_IP] ok
-
-{"password": "hunter2", "max_tokens": 1024}
-=> {"password": "[REDACTED]", "max_tokens": 1024}
-
-kart 4111 1111 1111 1111 tckn 10000000146
-=> kart ****-****-****-**** tckn [REDACTED_TCKN]
 ```
 
 ## What gets masked
