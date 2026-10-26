@@ -174,8 +174,6 @@ MIT. See [LICENSE](LICENSE) for details.
 
 <div align="center">
 
-Disclosure: I built this with help from Claude. The test suite and benchmarks
-are in the repo, so please check my claims and tell me what I missed.
 
 Made with ❤️ by Valex
 
