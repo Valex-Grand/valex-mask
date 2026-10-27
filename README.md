@@ -26,7 +26,7 @@ go build -o valex-mark.exe .
 Run the compiled binary:
 
 ```bash
-./valex-mark.exe "User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGci..."
+valex-mark "User valex@example.com tried login with api_key=sk_live_123456 and Bearer eyJhbGci..."
 ```
 
 Or install directly with Go:
